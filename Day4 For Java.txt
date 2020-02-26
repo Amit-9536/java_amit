@@ -1,0 +1,354 @@
+
+
+
+Java Inheritence
+------
+class A {
+    public void show() { ..... }
+}
+
+class B extends A {
+    public void display() {  .... }
+}
+
+A obj1 = new A(); obj1.show();
+
+B obj2 = new B();  obj2.show();  obj2.display();
+
+
+----------- method override
+class A {
+    public void show() { ..... }
+}
+
+class B extends A {
+    @override
+    public void show() {  .... }
+}
+
+A obj1 = new A(); obj1.show(); // base version
+B obj2 = new B(); obj2.show(); // derived version
+A obj3 = new B(); obj3.show(); // derived version
+B obj4 = new A(); obj4.show(); // compilation error as derived can not hold base instance
+
+
+
+
+
+
+
+
+
+
+
+
+
+abstract keyword:
+
+Abstract Class
+==================
+A class which is declared as abstract is known as an abstract class. It can have abstract and non-abstract methods. 
+It needs to be extended and its abstract method implemented. 
+It cannot be instantiated.
+
+An abstract class must be declared with an abstract keyword.
+It can have abstract and non-abstract methods.
+It cannot be instantiated.
+It can have constructors and static methods also.
+It can have final methods which will force the subclass not to change the body of the method.
+
+Abstract Method in Java
+====================
+A method which is declared as abstract and does not have implementation is known as an abstract method. 
+
+Abstract class having constructor, data member and methods
+======================
+An abstract class can have a data member, abstract method, method body (non-abstract method), constructor, and even main() method.
+
+
+final - keyword
+============
+final variable :   value can not change
+final int x = 12;
+ // x=x+12;  error  as final variable can not alter
+
+final class : can not extend means derived class not possible
+
+final class A {  ..... }
+// class B extends A { .... } error as final class can not extend
+Ex:  java.lang.String - final class
+
+final method :  method can not override
+class A {
+   final void show() {..... }
+}
+class B extends A {
+//  @override -- error as final method can not override
+  void show(){  ..... }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Interface in Java
+=========================
+An interface in Java is a blueprint of a class. 
+It has static constants and abstract methods.
+
+The interface in Java is a mechanism to achieve abstraction. 
+There can be only abstract methods in the Java interface, not method body. It is used to achieve abstraction and multiple inheritance in Java.
+
+An interface is declared by using the interface keyword. 
+It provides total abstraction; means all the methods in an interface are declared with the empty body, and all the fields are public, static and final by default. 
+A class that implements an interface must implement all the methods declared in the interface.
+
+
+Syntax:
+
+    interface <interface_name>{  
+          
+        // declare constant fields  
+        // declare methods that abstract   
+        // by default.  
+    }  
+
+Abstract class & interface : 
+Similarity:
+Both can make reference but can not make instance/object
+
+Difference:
+Abstract class may contain abstract & non-abstract methods
+But in Interface all methods by default are abstract.
+In Interface, all attributes are final , static by default.
+
+interface Inter1 {
+  void show(); // can not define as methods are abstract by default
+}
+
+class Cat implements Inter1 {
+  @Override
+   public void show() {  System.out.println("I am A"); }
+} 
+
+A single class can implement multiple interfaces .
+---------------------------------------
+interface Inter1 {
+  void show1(); 
+}
+
+interface Inter2 {
+  void show2(); 
+}
+
+class Dog implements Inter1 , Inter2 {
+  @Override
+   public void show1() {  System.out.println("I am A"); }
+  @Override
+   public void show2() {  System.out.println("I am B"); }
+} 
+
+
+Interface can be extended to make derived interface.
+------------------------------
+
+interface Inter1 {
+  void show1(); 
+}
+
+interface Inter2 extends Inter1{
+  void show2(); 
+}
+
+class Dog implements Inter2 {
+  @Override
+   public void show1() {  System.out.println("I am A"); }
+  @Override
+   public void show2() {  System.out.println("I am B"); }
+} 
+
+Interface can make reference , but not make object. This reference can hold any object where it is implemented.
+---------
+interface Inter1 {   void show1();  }
+
+interface Inter2 extends Inter1 {   void show2();  }
+
+class Dog implements Inter1 , Inter2 {
+  @Override
+   public void show1() {  System.out.println("I am A"); }
+  @Override
+   public void show2() {  System.out.println("I am B"); }
+} 
+
+Inter1 in1 ; // refererence can be created
+in1 = new Inter1(); // error as interface can not make instance
+in1 = new Dog(); // possible
+in1.show1();
+in1.show2();
+
+--------------------------------
+Java-8
+====
+Functional Interface :
+interface is declared with keyword : @FunctionalInterface
+This interface can hold one and only one abstract method.
+if try to give more methods, compilation issue.
+
+Ex: java.lang.Runnable interface : contains only one abstract method
+    public void run()
+
+@FunctionalInterface
+interface inter1 {
+// you can declare one and only one abstract method
+
+}
+---------------------------------
+ Interface with default method : (Java 8)
+
+interface inter1 {
+    default void show() {  }
+ }
+
+class A implements inter1 { ...... }
+
+A obj = new A();
+obj.show();
+
+=========================
+wap to take 2 numbers as command line argument.
+Find result of division amomng these numbers.
+
+
+Exception Handling in Java
+----------------------
+The Exception Handling in Java is one of the powerful mechanism to handle the runtime errors so that normal flow of the application can be maintained.
+
+Advantage of Exception Handling
+==================
+The core advantage of exception handling is to maintain the normal flow of the application. 
+An exception normally disrupts the normal flow of the application that is why we use exception handling. 
+
+Hierarchy of Java Exception classes
+--------------------
+java.lang.Throwable class is the root class of Java Exception hierarchy which is inherited by two subclasses: Exception and Error. 
+
+                 Throwable
+                     |
+    ---------------------------------------
+    Exception				Error
+	IOException			  StackOverflowError
+	ClassNotFoundException		  VirtualMachineError
+	SQLException			  OutOfMemoryError
+	RuntimeException
+		ArithmeticException
+		NullPointerException
+		NumberFormatException
+		IndexOutOfBoundsException
+		     ArrayIndexOutOfBoundsException
+		     StringIndexOutOfBoundsException
+
+
+
+Types of Java Exceptions
+
+There are mainly two types of exceptions: checked and unchecked. 
+    Checked Exception
+    Unchecked Exception
+
+Checked Exception : The classes which directly inherit Throwable class except RuntimeException and Error are known as checked exceptions e.g. IOException, SQLException etc. 
+Checked exceptions are checked at compile-time.
+
+Unchecked Exception : The classes which inherit RuntimeException are known as unchecked exceptions e.g. ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException etc. 
+Unchecked exceptions are not checked at compile-time, but they are checked at runtime. 
+
+
+Java Exception Keywords
+-----------------
+try
+used to specify a block where we should place exception code. 
+The try block must be followed by either catch or finally. 
+It means, we can't use try block alone.
+
+catch	
+used to handle the exception. 
+It must be preceded by try block which means we can't use catch block alone. 
+It can be followed by finally block later.
+
+finally	
+used to execute the important code of the program. 
+It is executed whether an exception is handled or not.
+it is the exit point of the function/method.
+But remember, if System.exit(0) is given from try or catch , then finally - block not executes.
+
+
+throw	
+used to throw an exception.
+
+throws	
+used to declare exceptions. 
+It doesn't throw an exception. 
+It specifies that there may occur an exception in the method. 
+It is always used with method signature.
+
+***
+Every try block should contain:
+1. either finally or catch or catch-finally
+2. if sequence changed , try-finally-catch.. compilation error
+3. try can be used without catch-block , but in this case, finally-block should be required.
+
+
+
+
+
+public class Division {
+public static void main(String[] args) {
+	try {	
+		int a = Integer.parseInt(args[0]);
+		int b = Integer.parseInt(args[1]);
+		int c = a/b;
+		System.out.println("Result is "+c);
+	}
+	
+        catch(Exception e ) {
+		System.out.println("Error : "+e); }
+
+	}
+}
+
+
+-------Single try block with multiple catch blocks:
+A single try block can contains multiple catch blocks.
+Every catch block to handle an exception
+Remember that always derived exception handle frist then base , otherwise compilation issue.
+
+
+
+
+catch(Exception e) {System.out.println(e); throw e;throw e;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
